@@ -1,0 +1,50 @@
+.schedule {
+  padding: 20px;
+}
+
+.schedule-date {
+  background-color: #EFEFEF;
+  font-size: 38px;
+  border-radius: 4px;
+  border-top: 10px SOLID red;
+  color:#333333;
+  text-align: center;
+  padding: 5px 5px;
+  width:50px;
+  margin-left:10px;
+  margin-bottom: 15px;
+}
+
+.schedule_meeting {
+  padding: 10px;
+}
+
+.schedule_how-soon {
+  font-size: 12px;
+  font-weight:700	
+}
+
+.schedule_meeting-name {
+  font-size: 22px;
+}
+
+.schedule_meeting-time {
+  font-size: 12px;	
+}
+
+.schedule_meeting-now {
+  padding: 10px;
+
+  .schedule_how-soon {
+    font-size: 22px;
+    font-weight:700
+  }
+
+  .schedule_meeting-name {
+    font-size: 38px;
+  }
+
+  .schedule_meeting-time {
+    font-size: 22px;
+  }
+}
