@@ -2,7 +2,7 @@ class WhatsPlayingsController < ApplicationController
 	skip_before_action :verify_authenticity_token
 
   def show
-  	puts player_status
+
   	render json: whatsPlaying
   end
 
@@ -46,11 +46,8 @@ def makeRequest(path, action, body, response)
 	
 	
 	res = Net::HTTP.start('192.168.86.105', 1400) {|http|
-	  puts 'requesting'
+
 	  res = http.request(req)
-	  #puts res
-	  
-	  puts res.body
 	  
 	  album = res.body
 	  album = album.gsub(/.*?&lt;upnp:album&gt;/, '')
@@ -126,7 +123,6 @@ def pause()
 
     res = Net::HTTP.start('192.168.86.105', 1400) {|http|
     	res = http.request(req)
-    	puts res.body
     }
 end
 
@@ -154,7 +150,7 @@ def play()
 
     res = Net::HTTP.start('192.168.86.105', 1400) {|http|
     	res = http.request(req)
-    	puts res.body
+
     }
 end
 
@@ -182,7 +178,7 @@ def next_track()
 
     res = Net::HTTP.start('192.168.86.105', 1400) {|http|
     	res = http.request(req)
-    	puts res.body
+
     }
 end
 
@@ -210,7 +206,7 @@ def previous_track()
 
     res = Net::HTTP.start('192.168.86.105', 1400) {|http|
     	res = http.request(req)
-    	puts res.body
+
     }
 end
 
@@ -238,7 +234,7 @@ def player_status()
 
     res = Net::HTTP.start('192.168.86.105', 1400) {|http|
     	res = http.request(req)
-    	puts res.body
+
 
     	if res.body =~ /<CurrentTransportState>PLAYING<\/CurrentTransportState>/
     		return 'PLAYING'
