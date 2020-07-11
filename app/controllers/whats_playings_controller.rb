@@ -1,7 +1,24 @@
 class WhatsPlayingsController < ApplicationController
+	skip_before_action :verify_authenticity_token
+
   def show
-  	next_track
+  	puts player_status
   	render json: whatsPlaying
+  end
+
+  def update
+  	case params[:to_do]
+  	when 'play'
+  		play
+  	when 'pause'
+  		pause
+  	when 'next'
+  		next_track
+  	when 'previous'
+  		previous_track
+  	end
+
+  	render json: {}
   end
 
   def wrapInEnvelope(body)
@@ -62,9 +79,10 @@ def makeRequest(path, action, body, response)
 	  track = track.gsub(/&lt;\/dc:title.*/, '')
 	  track = track.gsub(/\&apos;/, "'")
 	   track = track.gsub(/\&amp;/, "&")
+
+	   response = player_status
 	  
-	   puts "{\"album\": \"#{album}\", \"artist\": \"#{artist}\", \"track\": \"#{track}\", \"url\": \"#{url}\"} "
-	  return "{\"album\": \"#{album}\", \"artist\": \"#{artist}\", \"track\": \"#{track}\", \"url\": \"#{url}\"} "
+	  return "{\"album\": \"#{album}\", \"artist\": \"#{artist}\", \"track\": \"#{track}\", \"url\": \"#{url}\", \"state\": \"#{player_status}\"} "
 	 	}
 	
 	
@@ -194,5 +212,41 @@ def previous_track()
     	res = http.request(req)
     	puts res.body
     }
+end
+
+def player_status()
+	body = '<?xml version="1.0" encoding="utf-8"?>
+   	 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+   	 <s:Body>
+   	 <u:GetTransportInfo xmlns:u="urn:schemas-upnp-org:service:AVTransport:1">
+   	 <InstanceID>0</InstanceID>
+   	 <Speed>1</Speed>
+   	 </u:GetTransportInfo></s:Body></s:Envelope>'
+
+    action = 'urn:schemas-upnp-org:service:AVTransport:1#GetTransportInfo'
+    path = "/MediaRenderer/AVTransport/Control"
+
+    wrappedBody = wrapInEnvelope(body)
+	
+	uri = URI(getURL(path))
+
+	
+	req = Net::HTTP::Post.new(getURL(path))
+	req['SOAPAction'] = action
+	req['Content-type'] = 'text/xml; charset=utf8'
+	req.body = body
+
+    res = Net::HTTP.start('192.168.86.105', 1400) {|http|
+    	res = http.request(req)
+    	puts res.body
+
+    	if res.body =~ /<CurrentTransportState>PLAYING<\/CurrentTransportState>/
+    		return 'PLAYING'
+    	else
+    		return 'PAUSED'
+    	end
+    }
+
+    res
 end
 end
