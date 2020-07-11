@@ -1,7 +1,7 @@
 .sonos {
   width:100%;
   position: absolute;
-  bottom:0;
+  top: 0;
   min-height:100px;
   background: rgb(153,153,153);
   background: linear-gradient(0deg, rgba(153,153,153,1) 0%, rgba(187,187,187,1) 100%);

@@ -1,3 +1,14 @@
+.main-content {
+  display:flex;
+  flex-direction: row;
+
+  margin-top:100px;
+}
+
+.icons {
+  padding-top: 23px;
+  padding-left:15px;
+}
 .schedule {
   padding: 20px;
 }
@@ -13,10 +24,12 @@
   width:50px;
   margin-left:10px;
   margin-bottom: 15px;
+
 }
 
 .schedule_meeting {
-  padding: 10px;
+  padding-left:10px;
+  padding-bottom: 20px;
 }
 
 .schedule_how-soon {
@@ -32,19 +45,21 @@
   font-size: 12px;	
 }
 
-.schedule_meeting-now {
-  padding: 10px;
+.schedule_meeting.now {
+  padding-left: 10px;
+  padding-bottom: 20px;
+}
 
-  .schedule_how-soon {
+  .schedule_how-soon.now {
     font-size: 22px;
     font-weight:700
   }
 
-  .schedule_meeting-name {
+  .schedule_meeting-name.now {
     font-size: 38px;
   }
 
-  .schedule_meeting-time {
+  .schedule_meeting-time.now {
     font-size: 22px;
   }
-}
+
