@@ -1,8 +1,9 @@
 class WhatsPlayingsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def show
+  SPEAKER_ADDRESS = '192.168.86.105'
 
+  def show
     render json: whatsPlaying
   end
 
@@ -29,8 +30,7 @@ class WhatsPlayingsController < ApplicationController
   end
 
   def getURL(path)
-    host = '192.168.86.105'
-    "http://#{host}:1400#{path}"
+    "http://#{SPEAKER_ADDRESS}:1400#{path}"
   end
 
   def makeRequest(path, action, body, response)
@@ -43,7 +43,7 @@ class WhatsPlayingsController < ApplicationController
     req['Content-type'] = 'text/xml; charset=utf8'
     req.body = wrappedBody
   
-    res = Net::HTTP.start('192.168.86.105', 1400) {|http|
+    res = Net::HTTP.start(SPEAKER_ADDRESS, 1400) {|http|
 
       res = http.request(req)
       
@@ -112,7 +112,7 @@ class WhatsPlayingsController < ApplicationController
     req['Content-type'] = 'text/xml; charset=utf8'
     req.body = body
 
-    res = Net::HTTP.start('192.168.86.105', 1400) {|http|
+    res = Net::HTTP.start(SPEAKER_ADDRESS, 1400) {|http|
       res = http.request(req)
     }
   end
@@ -140,7 +140,7 @@ class WhatsPlayingsController < ApplicationController
     req['Content-type'] = 'text/xml; charset=utf8'
     req.body = body
 
-    res = Net::HTTP.start('192.168.86.105', 1400) {|http|
+    res = Net::HTTP.start(SPEAKER_ADDRESS, 1400) {|http|
       res = http.request(req)
     }
   end
@@ -168,7 +168,7 @@ class WhatsPlayingsController < ApplicationController
     req['Content-type'] = 'text/xml; charset=utf8'
     req.body = body
 
-    res = Net::HTTP.start('192.168.86.105', 1400) {|http|
+    res = Net::HTTP.start(SPEAKER_ADDRESS, 1400) {|http|
       res = http.request(req)
     }
   end
@@ -196,7 +196,7 @@ class WhatsPlayingsController < ApplicationController
     req['Content-type'] = 'text/xml; charset=utf8'
     req.body = body
 
-    res = Net::HTTP.start('192.168.86.105', 1400) {|http|
+    res = Net::HTTP.start(SPEAKER_ADDRESS, 1400) {|http|
       res = http.request(req)
     }
   end
@@ -224,7 +224,7 @@ class WhatsPlayingsController < ApplicationController
     req['Content-type'] = 'text/xml; charset=utf8'
     req.body = body
 
-    res = Net::HTTP.start('192.168.86.105', 1400) {|http|
+    res = Net::HTTP.start(SPEAKER_ADDRESS, 1400) {|http|
       res = http.request(req)
 
       if res.body =~ /<CurrentTransportState>PLAYING<\/CurrentTransportState>/
