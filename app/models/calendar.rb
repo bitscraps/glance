@@ -49,7 +49,7 @@ end
   # Fetch the next 10 events for the user
   calendar_id = "primary"
   response = @service.list_events(calendar_id,
-                                 max_results:   11,
+                                 max_results:   4,
                                  single_events: true,
                                  order_by:      "startTime",
                                  time_min:      DateTime.now.rfc3339)

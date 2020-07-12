@@ -45,21 +45,21 @@
   font-size: 12px;	
 }
 
-.schedule_meeting.now {
+.schedule_meeting:first-child {
   padding-left: 10px;
   padding-bottom: 20px;
 }
 
-  .schedule_how-soon.now {
+  .schedule_meeting:first-child > .schedule_how-soon {
     font-size: 22px;
     font-weight:700
   }
 
-  .schedule_meeting-name.now {
+   .schedule_meeting:first-child > .schedule_meeting-name {
     font-size: 38px;
   }
 
-  .schedule_meeting-time.now {
+   .schedule_meeting:first-child > .schedule_meeting-time {
     font-size: 22px;
   }
 
