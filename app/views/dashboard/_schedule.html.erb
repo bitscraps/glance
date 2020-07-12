@@ -1,0 +1,37 @@
+<div class="schedule" id=schedule>  
+</div>
+
+<script>
+  const updateSchedule = function() {
+    fetch("/calendar_events")
+    .then(
+      function(response) {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+          return;
+        }
+
+        // Examine the text in the response
+        response.json().then(function(data) {
+          let html = "";
+          data.forEach(function (item, index) {
+            html = html + '<div class="schedule_meeting">' +
+                          '<div class="schedule_how-soon">'+item.when+'</div>' +
+                          '<div class="schedule_meeting-name">'+item.summary+'</div>' +
+                          '<div class="schedule_meeting-time">'+item.starts+' - '+item.ends+'</div>' +
+                          '</div>'
+          })
+          
+          document.getElementById('schedule').innerHTML = html;
+        });
+      }
+    )
+    .catch(function(err) {
+      console.log('Fetch Error :-S', err);
+    });
+  }
+
+  updateSchedule();
+  setInterval(function() { updateSchedule() }, 60000);
+</script>

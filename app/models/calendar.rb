@@ -39,22 +39,22 @@ class Calendar
   end
 
   def initialize
-  # Initialize the API
-  @service = Google::Apis::CalendarV3::CalendarService.new
-  @service.client_options.application_name = APPLICATION_NAME
-  @service.authorization = authorize
-end
+    # Initialize the API
+    @service = Google::Apis::CalendarV3::CalendarService.new
+    @service.client_options.application_name = APPLICATION_NAME
+    @service.authorization = authorize
+  end
 
   def events
-  # Fetch the next 10 events for the user
-  calendar_id = "primary"
-  response = @service.list_events(calendar_id,
-                                 max_results:   4,
-                                 single_events: true,
-                                 order_by:      "startTime",
-                                 time_min:      DateTime.now.rfc3339)
-  puts "Upcoming events:"
-  puts "No upcoming events found" if response.items.empty?
-  response.items
-end
+    # Fetch the next 10 events for the user
+    calendar_id = "primary"
+    response = @service.list_events(calendar_id,
+                                   max_results:   4,
+                                   single_events: true,
+                                   order_by:      "startTime",
+                                   time_min:      DateTime.now.rfc3339)
+    puts "Upcoming events:"
+    puts "No upcoming events found" if response.items.empty?
+    response.items
+  end
 end

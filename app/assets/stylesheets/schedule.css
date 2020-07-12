@@ -1,14 +1,14 @@
 .main-content {
-  display:flex;
+  display: flex;
   flex-direction: row;
-
-  margin-top:100px;
+  margin-top: 100px;
 }
 
 .icons {
   padding-top: 23px;
-  padding-left:15px;
+  padding-left: 15px;
 }
+
 .schedule {
   padding: 20px;
 }
@@ -18,23 +18,23 @@
   font-size: 38px;
   border-radius: 4px;
   border-top: 10px SOLID red;
-  color:#333333;
+  color: #333333;
   text-align: center;
   padding: 5px 5px;
-  width:50px;
-  margin-left:10px;
+  width: 50px;
+  margin-left: 10px;
   margin-bottom: 15px;
 
 }
 
 .schedule_meeting {
-  padding-left:10px;
+  padding-left: 10px;
   padding-bottom: 20px;
 }
 
 .schedule_how-soon {
   font-size: 12px;
-  font-weight:700	
+  font-weight: 700;
 }
 
 .schedule_meeting-name {
@@ -42,7 +42,7 @@
 }
 
 .schedule_meeting-time {
-  font-size: 12px;	
+  font-size: 12px;
 }
 
 .schedule_meeting:first-child {
@@ -50,16 +50,15 @@
   padding-bottom: 20px;
 }
 
-  .schedule_meeting:first-child > .schedule_how-soon {
-    font-size: 22px;
-    font-weight:700
-  }
+.schedule_meeting:first-child > .schedule_how-soon {
+  font-size: 22px;
+  font-weight: 700;
+}
 
-   .schedule_meeting:first-child > .schedule_meeting-name {
-    font-size: 38px;
-  }
+ .schedule_meeting:first-child > .schedule_meeting-name {
+  font-size: 38px;
+}
 
-   .schedule_meeting:first-child > .schedule_meeting-time {
-    font-size: 22px;
-  }
-
+ .schedule_meeting:first-child > .schedule_meeting-time {
+  font-size: 22px;
+}

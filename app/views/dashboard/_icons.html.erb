@@ -1,0 +1,14 @@
+<div class="icons">
+  <div class="schedule-date" id=date>
+  </div>
+</div>
+
+<script>
+  const setDate = function() {
+    var d = new Date();
+    document.getElementById('date').innerHTML = d.getDate();
+  }
+
+  setDate();
+  setInterval(function() { setDate() }, 60000);
+</script>

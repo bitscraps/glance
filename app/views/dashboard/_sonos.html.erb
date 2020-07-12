@@ -1,87 +1,82 @@
 <div class="sonos">
-	<div class="sonos_album-art"> <img height="100%" id="album_art" src=""></div>
-	<div class="sonos_meta">
-		<div class="sonos_track" id="track"></div>
-		<div class="sonos_artist" id="artist"></div>
-	</div>
-	<div class="sonos_controls">
-		<i class="fas fa-backward sonos_arrow" onClick="sonosAction('previous')"></i>
-		<i id="player_toggle" class="far fa-play-circle sonos_pause" onClick="togglePlay()"></i>
-		<i class="fas fa-forward sonos_arrow" onClick="sonosAction('next')"></i>
-	</div>
+  <div class="sonos_album-art"> <img height="100%" id="album_art" src=""></div>
+  <div class="sonos_meta">
+    <div class="sonos_track" id="track"></div>
+    <div class="sonos_artist" id="artist"></div>
+  </div>
+  <div class="sonos_controls">
+    <i class="fas fa-backward sonos_arrow" onClick="sonosAction('previous')"></i>
+    <i id="player_toggle" class="far fa-play-circle sonos_pause" onClick="togglePlay()"></i>
+    <i class="fas fa-forward sonos_arrow" onClick="sonosAction('next')"></i>
+  </div>
 </div>
 
 <script>
   let player_state = 'PAUSED';
 
   togglePlay = function() {
-  	console.log('player_state')
-  	if (player_state == 'PAUSED') {
-  		sonosAction('play');
-  		document.getElementById('player_toggle').className = "far fa-pause-circle sonos_pause"
-  		player_state = 'PLAYING';
-  	} else {
-  		sonosAction('pause');
-  		document.getElementById('player_toggle').className = "far fa-play-circle sonos_pause"
-  		player_state = 'PAUSED';
-  	}
+    console.log('player_state')
+    if (player_state == 'PAUSED') {
+      sonosAction('play');
+      document.getElementById('player_toggle').className = "far fa-pause-circle sonos_pause"
+      player_state = 'PLAYING';
+    } else {
+      sonosAction('pause');
+      document.getElementById('player_toggle').className = "far fa-play-circle sonos_pause"
+      player_state = 'PAUSED';
+    }
   }
 
   const updatePlaying = function() {
-	  fetch('/whats_playing')
-	  .then(
-	    function(response) {
-	      if (response.status !== 200) {
-	        console.log('Looks like there was a problem. Status Code: ' +
-	          response.status);
-	        return;
-	      }
+    fetch('/whats_playing')
+    .then(
+      function(response) {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+          return;
+        }
 
-	      // Examine the text in the response
-	      response.json().then(function(data) {
-	        console.log(data);
-	        console.log(data.track);
-	        document.getElementById('album_art').src = data.url;
-	        document.getElementById('artist').innerHTML = data.artist;
-	        document.getElementById('track').innerHTML = data.track;
+        // Examine the text in the response
+        response.json().then(function(data) {
+          console.log(data);
+          console.log(data.track);
+          document.getElementById('album_art').src = data.url;
+          document.getElementById('artist').innerHTML = data.artist;
+          document.getElementById('track').innerHTML = data.track;
 
-	        player_state = data.state;
-	        if (player_state == 'PAUSED') {
-  		
-  		document.getElementById('player_toggle').className = "far fa-play-circle sonos_pause"
-
-  	} else {
-  		console.log('state' + data.state)
-  		document.getElementById('player_toggle').className = "far fa-pause-circle sonos_pause"
-
-  	}
-	      });
-	    }
-	  )
-	  .catch(function(err) {
-	    console.log('Fetch Error :-S', err);
-	  });
+          player_state = data.state;
+          if (player_state == 'PAUSED') {
+            document.getElementById('player_toggle').className = "far fa-play-circle sonos_pause"
+          } else {
+            document.getElementById('player_toggle').className = "far fa-pause-circle sonos_pause"
+          }
+        });
+      }
+    )
+    .catch(function(err) {
+      console.log('Fetch Error :-S', err);
+    });
   };
 
   const sonosAction = function(action) {
-  	fetch("/whats_playing?to_do="+action, { method: 'PUT'})
-  .then(
-    function(response) {
-      if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          response.status);
-        return;
-      }
+    fetch("/whats_playing?to_do="+action, { method: 'PUT'})
+    .then(
+      function(response) {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+          return;
+        }
 
-      // Examine the text in the response
-      response.json().then(function(data) {
-        console.log(data);
-      });
-    }
-  )
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
-  });
+        // Examine the text in the response
+        response.json().then(function(data) {
+        });
+      }
+    )
+    .catch(function(err) {
+      console.log('Fetch Error :-S', err);
+    });
   }
 
   updatePlaying();
